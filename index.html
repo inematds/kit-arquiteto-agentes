@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kit do Arquiteto de Agentes · INEMA</title>
+<meta name="description" content="Sete modelos preenchíveis que viram a especificação de um agente de IA numa página: mapa de seis elos, pedido de longo horizonte, cadeia de orquestração, inventário de contexto, ficha de qualidade, matriz de permissões e o prompt de ensaio simulado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0b0d12;--bg2:#11141b;--panel:#161a23;--panel2:#1c2130;--line:#262c3a;--line2:#343b4d;--ink:#ece8df;--ink2:#b9b4a8;--muted:#8a8578;--amb:#E2A23B;--amb2:#f3c469;--sky:#38bdf8;--ok:#5fcf9a;--err:#e07a72;--sans:"Inter",system-ui,sans-serif;--mono:"Space Mono",ui-monospace,monospace}
+  [data-theme="light"]{--bg:#f6f3ec;--bg2:#efebe1;--panel:#ffffff;--panel2:#f3efe6;--line:#dcd6c8;--line2:#c9c2b2;--ink:#1b1a17;--ink2:#3e3b34;--muted:#6f6a5e;--amb:#b8781c;--amb2:#9a6414}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-in{max-width:1180px;margin:0 auto;padding:12px clamp(16px,4vw,40px);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .logo{font-weight:700;color:var(--amb);text-decoration:none;font-size:15px}
+  .sep{color:var(--line2)}
+  .inema{color:var(--sky);text-decoration:none;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em}
+  .pro{background:linear-gradient(135deg,#f3d27a,#c9c9c9);color:#111;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:800;letter-spacing:.1em;text-decoration:none}
+  .nav .grow{flex:1}
+  .nav a.nl{color:var(--ink2);text-decoration:none;font-size:13px}
+  .nav a.nl:hover{color:var(--amb)}
+  .btn{font-family:var(--mono);font-size:12px;border:1px solid var(--line2);background:var(--panel);color:var(--ink);border-radius:10px;padding:8px 14px;cursor:pointer}
+  .btn:hover{border-color:var(--amb);color:var(--amb)}
+  .btn.primary{background:var(--amb);color:#111;border-color:var(--amb);font-weight:700}
+  .btn.primary:hover{background:var(--amb2);color:#111}
+  .btn.small{padding:5px 10px;font-size:11px}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+  .hero{padding:56px 0 28px;border-bottom:1px solid var(--line)}
+  .kicker{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--amb);margin:0 0 12px}
+  h1{font-size:clamp(30px,4.6vw,48px);line-height:1.08;letter-spacing:-.02em;margin:0 0 14px;max-width:22ch}
+  h1 em{font-style:normal;color:var(--amb)}
+  .lead{color:var(--ink2);font-size:17px;max-width:64ch;margin:0 0 22px}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .toolbar .note{font-family:var(--mono);font-size:11px;color:var(--muted)}
+  .layout{display:grid;grid-template-columns:230px 1fr;gap:28px;padding:32px 0 80px}
+  .toc{position:sticky;top:72px;align-self:start;display:flex;flex-direction:column;gap:4px}
+  .toc a{text-decoration:none;color:var(--ink2);font-size:13px;padding:7px 10px;border-radius:8px;border:1px solid transparent}
+  .toc a:hover{border-color:var(--line2);color:var(--ink)}
+  .toc a .n{font-family:var(--mono);color:var(--amb);margin-right:8px;font-size:11px}
+  .toc .prog{margin-top:12px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+  .toc .bar{height:4px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:6px}
+  .toc .bar i{display:block;height:100%;background:var(--amb);width:0;transition:width .3s}
+  .bloco{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px 28px;margin-bottom:22px}
+  .bloco h2{margin:0 0 4px;font-size:21px;display:flex;align-items:center;gap:12px}
+  .bloco h2 .n{font-family:var(--mono);font-size:12px;color:var(--amb);border:1px solid var(--amb);border-radius:99px;padding:2px 9px}
+  .bloco .aula{font-family:var(--mono);font-size:11px;color:var(--muted);margin:0 0 14px}
+  .bloco .dica{color:var(--ink2);font-size:14px;margin:0 0 18px;padding:12px 14px;background:var(--panel2);border-left:3px solid var(--amb);border-radius:8px}
+  label.f{display:block;margin:0 0 14px}
+  label.f span{display:block;font-size:13px;font-weight:600;margin-bottom:5px}
+  label.f small{display:block;color:var(--muted);font-size:12px;margin-bottom:6px;font-weight:400}
+  input[type=text],textarea,select{width:100%;font:inherit;font-size:14px;color:var(--ink);background:var(--bg2);border:1px solid var(--line2);border-radius:10px;padding:10px 12px}
+  textarea{min-height:76px;resize:vertical}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--amb)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;padding:6px 8px;border-bottom:1px solid var(--line2)}
+  td{padding:6px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+  td input,td select,td textarea{padding:7px 9px;font-size:13px}
+  td textarea{min-height:40px}
+  .tabwrap{overflow-x:auto}
+  .rowbtns{display:flex;gap:8px;margin-top:10px}
+  .del{background:none;border:0;color:var(--muted);cursor:pointer;font-size:16px;padding:6px}
+  .del:hover{color:var(--err)}
+  .out{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px 28px;margin-bottom:22px}
+  .out h2{margin:0 0 6px;font-size:22px}
+  .out p.sub{color:var(--ink2);margin:0 0 16px;font-size:14px}
+  pre.spec{white-space:pre-wrap;font-family:var(--mono);font-size:12.5px;line-height:1.55;background:var(--bg2);border:1px solid var(--line2);border-radius:12px;padding:18px;max-height:520px;overflow:auto;color:var(--ink)}
+  .gaps{margin:12px 0 0;padding:0;list-style:none;font-size:13px}
+  .gaps li{padding:6px 10px;border-left:3px solid var(--amb);background:var(--panel2);border-radius:6px;margin-bottom:6px}
+  .gaps li.ok{border-color:var(--ok)}
+  footer{border-top:1px solid var(--line);padding:30px 0 40px;color:var(--muted);font-size:13px;text-align:center}
+  footer a{color:var(--amb);text-decoration:none}
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--amb);color:#111;font-family:var(--mono);font-size:12px;padding:10px 16px;border-radius:99px;opacity:0;transition:opacity .25s;pointer-events:none}
+  .toast.on{opacity:1}
+  @media(max-width:860px){.layout{grid-template-columns:1fr}.toc{position:static;flex-direction:row;flex-wrap:wrap}.toc .prog{width:100%}}
+  @media print{
+    .nav,.toc,.toolbar,.bloco,footer,.toast,.out .btns{display:none!important}
+    body{background:#fff;color:#111}
+    .layout{display:block;padding:0}
+    .out{border:0;padding:0}
+    pre.spec{max-height:none;border:0;background:#fff;color:#111;font-size:11.5pt;padding:0}
+  }
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-in">
+  <a class="logo" href="#top">🏗️ Kit do Arquiteto de Agentes</a>
+  <span class="sep">|</span><a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a>
+  <span class="sep">-</span><a class="pro" href="https://inema.pro" target="_blank" rel="noopener">PRO</a>
+  <span class="grow"></span>
+  <a class="nl" href="guia/">guia</a>
+  <a class="nl" href="https://inematds.github.io/pffia/" target="_blank" rel="noopener">curso</a>
+  <button class="btn small" id="theme" type="button">🌙</button>
+  <a class="btn small" href="https://github.com/inematds/kit-arquiteto-agentes" target="_blank" rel="noopener">GitHub</a>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <p class="kicker">Kit de trabalho · humanos dirigem, agentes executam</p>
+  <h1>Sete modelos que viram a <em>especificação do seu agente</em> numa página</h1>
+  <p class="lead">Preencha os blocos na ordem. Tudo salva sozinho no seu navegador, nada sai daqui. No fim, o kit monta a especificação de uma página e o prompt de ensaio simulado para você colar num chat de IA. É o mesmo método do curso <a href="https://inematds.github.io/pffia/" target="_blank" rel="noopener">Arquiteto de Trabalho com IA</a>, pronto para reusar em cada novo processo.</p>
+  <div class="toolbar">
+    <button class="btn primary" type="button" data-go="#saida">gerar especificação</button>
+    <button class="btn" type="button" id="exportar">exportar (.json)</button>
+    <label class="btn" for="importar" style="margin:0">importar (.json)</label><input type="file" id="importar" accept="application/json" hidden>
+    <button class="btn" type="button" id="exemplo">carregar exemplo</button>
+    <button class="btn" type="button" id="zerar">zerar</button>
+    <span class="note" id="salvo">salvo neste navegador</span>
+  </div>
+</div></header>
+
+<div class="wrap layout">
+  <aside class="toc">
+    <a href="#b1"><span class="n">01</span>Processo e resultado</a>
+    <a href="#b2"><span class="n">02</span>Mapa de seis elos</a>
+    <a href="#b3"><span class="n">03</span>Pedido de longo horizonte</a>
+    <a href="#b4"><span class="n">04</span>Cadeia de orquestração</a>
+    <a href="#b5"><span class="n">05</span>Inventário de contexto</a>
+    <a href="#b6"><span class="n">06</span>Ficha de qualidade</a>
+    <a href="#b7"><span class="n">07</span>Matriz de permissões</a>
+    <a href="#saida"><span class="n">→</span>Especificação e ensaio</a>
+    <div class="prog">preenchido <span id="pct">0%</span><div class="bar"><i id="pbar"></i></div></div>
+  </aside>
+
+  <main>
+    <section class="bloco" id="b1">
+      <h2><span class="n">01</span> Processo e resultado</h2>
+      <p class="aula">curso · aulas 1 e 2</p>
+      <p class="dica">Escolha um processo que se repete toda semana e envolve mais de uma pessoa. Escreva o resultado dizendo o que a pessoa do outro lado passa a saber ou ter, não "planilha enviada".</p>
+      <label class="f"><span>Nome do processo</span><input type="text" data-k="processo" placeholder="Ex.: reativação de clientes sem compra há 90 dias"></label>
+      <label class="f"><span>Resultado em uma frase</span><small>Alguém de outra área entenderia?</small><input type="text" data-k="resultado" placeholder="Ex.: a gerente aprova, toda segunda, uma abordagem pronta para cada cliente parado com potencial"></label>
+      <label class="f"><span>Quem participa hoje e quantas etapas</span><input type="text" data-k="hoje" placeholder="Ex.: 2 vendedores + gerente, 11 etapas, uma manhã por semana"></label>
+    </section>
+
+    <section class="bloco" id="b2">
+      <h2><span class="n">02</span> Mapa de seis elos</h2>
+      <p class="aula">curso · aula 2</p>
+      <p class="dica">Escreva do fim para o começo. Nas decisões, marque R (regra: duas pessoas treinadas respondem igual) ou J (julgamento: competentes podem discordar). Exceção sempre desemboca num humano.</p>
+      <label class="f"><span>Entrada</span><small>O que chega, de onde, e o que dispara o processo.</small><textarea data-k="entrada" placeholder="Ex.: toda segunda, o cadastro de clientes lista quem não compra há 90 dias"></textarea></label>
+      <label class="f"><span>Decisões</span><small>Uma por linha, com R ou J no início.</small><textarea data-k="decisoes" placeholder="R · cliente tem cobrança em aberto? não abordar&#10;R · valor de compra acima de 3x a média? separar&#10;J · vale exceção de prazo para este cliente?"></textarea></label>
+      <label class="f"><span>Ações e verificações</span><small>Cada ação com a verificação ao lado.</small><textarea data-k="acoes" placeholder="Ex.: preparar abordagem → confere: cita último produto comprado, até 6 linhas, preço da tabela"></textarea></label>
+      <label class="f"><span>Exceções dos últimos três meses e quem decide</span><textarea data-k="excecoes" placeholder="Ex.: cliente com duas fichas no cadastro → gerente decide qual usar"></textarea></label>
+    </section>
+
+    <section class="bloco" id="b3">
+      <h2><span class="n">03</span> Pedido de longo horizonte</h2>
+      <p class="aula">curso · aula 3</p>
+      <p class="dica">As cinco peças traduzem o mapa: objetivo = resultado; contexto e restrições = decisões de regra; critério = verificação; aprovação = exceções e julgamentos.</p>
+      <label class="f"><span>Objetivo</span><input type="text" data-k="objetivo" placeholder="Ex.: preparar uma abordagem de reativação para cada cliente sem compra há mais de 90 dias"></label>
+      <label class="f"><span>Contexto</span><small>O que o agente precisa saber da empresa para não fazer genérico.</small><textarea data-k="contexto" placeholder="Ex.: vendemos material de construção a lojistas; tabela de preços e histórico em anexo; prazo padrão 7 dias"></textarea></label>
+      <label class="f"><span>Restrições</span><textarea data-k="restricoes" placeholder="Ex.: não prometa prazo menor que 7 dias; não use preço fora da tabela; cobrança em aberto → lista separada com motivo"></textarea></label>
+      <label class="f"><span>Critério de sucesso</span><textarea data-k="criterio" placeholder="Ex.: cada abordagem cita o último produto comprado e tem no máximo 6 linhas"></textarea></label>
+      <label class="f"><span>Ponto de aprovação</span><textarea data-k="aprovacao" placeholder="Ex.: não envie nem registre nada; apresente as abordagens em lista com o registro do que considerou e descartou, e espere meu ok"></textarea></label>
+    </section>
+
+    <section class="bloco" id="b4">
+      <h2><span class="n">04</span> Cadeia de orquestração</h2>
+      <p class="aula">curso · aula 4</p>
+      <p class="dica">Entre dois e cinco especialistas, um por tipo de trabalho. O coordenador não executa: divide, junta e guarda as regras de quando parar e chamar. Quem executa não confere a si mesmo.</p>
+      <div class="tabwrap"><table id="t-cadeia"><thead><tr><th>Especialista (o que faz)</th><th>Ferramenta que usa</th><th>Sistema que alcança</th><th>Porta de serviço?</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div class="rowbtns"><button class="btn small" type="button" data-add="cadeia">+ especialista</button></div>
+      <label class="f" style="margin-top:16px"><span>Regras do coordenador: quando parar e chamar um humano</span><textarea data-k="coord" placeholder="Ex.: dúvida sem regra → sobe para a gerente; mais de 20 clientes separados no mesmo dia → para e chama"></textarea></label>
+      <label class="f"><span>O que o verificador confere (só resultado + critérios)</span><textarea data-k="verificador" placeholder="Ex.: preço bate com a tabela; nenhum prazo abaixo de 7 dias; toda linha da lista separada tem motivo"></textarea></label>
+    </section>
+
+    <section class="bloco" id="b5">
+      <h2><span class="n">05</span> Inventário de contexto</h2>
+      <p class="aula">curso · aula 5</p>
+      <p class="dica">Uma linha por informação que o agente precisa. "Na cabeça de alguém", "imagem escaneada" ou "e-mail antigo" são o trabalho a fazer antes do agente. Dono é uma pessoa, não um setor.</p>
+      <div class="tabwrap"><table id="t-inv"><thead><tr><th>O que é</th><th>Onde está hoje</th><th>Formato</th><th>Acessível?</th><th>Dono</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div class="rowbtns"><button class="btn small" type="button" data-add="inv">+ linha</button></div>
+    </section>
+
+    <section class="bloco" id="b6">
+      <h2><span class="n">06</span> Ficha de qualidade</h2>
+      <p class="aula">curso · aula 6</p>
+      <p class="dica">Condições observáveis, não adjetivos. Cada condição numa faixa: tolerável (segue e registra), bloqueante (para e mostra), proibido (sem permissão). Parar e chamar são decisões separadas.</p>
+      <div class="tabwrap"><table id="t-qual"><thead><tr><th>Condição de resposta correta</th><th>Faixa do erro</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div class="rowbtns"><button class="btn small" type="button" data-add="qual">+ condição</button></div>
+      <label class="f" style="margin-top:16px"><span>Quando PARAR</span><textarea data-k="parar" placeholder="Ex.: nota sem pedido; divergência acima de 2%; mais de 50 itens; mais de 1 hora"></textarea></label>
+      <label class="f"><span>Quando CHAMAR você na hora (no máximo três)</span><textarea data-k="chamar" placeholder="Ex.: divergência acima de 5 mil reais; mais de 20 notas paradas no mesmo dia"></textarea></label>
+      <label class="f"><span>Bateria de casos</span><small>10 a 20 casos reais do passado, com onde estão e o que a pessoa fez. Inclua 3 difíceis.</small><textarea data-k="bateria" placeholder="Ex.: 1. nota 4412/mar (comum) · 2. cliente com duas fichas (difícil) · 3. ..."></textarea></label>
+    </section>
+
+    <section class="bloco" id="b7">
+      <h2><span class="n">07</span> Matriz de permissões</h2>
+      <p class="aula">curso · aula 7</p>
+      <p class="dica">Comece com a matriz mais apertada que ainda permite o trabalho. Na primeira versão, comprar, apagar e aprovar costumam ser "não pode". Toda linha tem um dono com nome.</p>
+      <div class="tabwrap"><table id="t-perm"><thead><tr><th>Ação</th><th>Resposta</th><th>Dono (uma pessoa)</th><th>Observação</th></tr></thead><tbody></tbody></table></div>
+      <label class="f" style="margin-top:16px"><span>Dados que ficam FORA do alcance do agente</span><small>Pergunta: o trabalho sai igual sem isso? Se sim, fica fora.</small><textarea data-k="fora" placeholder="Ex.: CNPJ, dados bancários, celular do dono da loja"></textarea></label>
+    </section>
+
+    <section class="out" id="saida">
+      <h2>Especificação em uma página</h2>
+      <p class="sub">Gerada a partir dos sete blocos. Copie, imprima ou cole no prompt de ensaio abaixo.</p>
+      <div class="btns toolbar" style="margin-bottom:14px"><button class="btn primary" type="button" id="copiar-spec">copiar especificação</button><button class="btn" type="button" id="imprimir">imprimir / PDF</button><button class="btn" type="button" id="baixar-md">baixar .md</button></div>
+      <pre class="spec" id="spec"></pre>
+      <ul class="gaps" id="gaps"></ul>
+    </section>
+
+    <section class="out" id="ensaio">
+      <h2>Prompt de ensaio simulado</h2>
+      <p class="sub">Cole num chat de IA (ChatGPT, Claude, Copilot). Ele interpreta o coordenador, aplica a ficha e a matriz e devolve as lacunas. Use só dados fictícios no caso.</p>
+      <label class="f"><span>Caso da bateria (fictício)</span><textarea data-k="caso" placeholder='Ex.: cliente Ferragens Sol, sem compra há 120 dias, último produto: 40 sacos de cimento em maio, cobrança em aberto de 1.200 reais'></textarea></label>
+      <div class="btns toolbar" style="margin-bottom:14px"><button class="btn primary" type="button" id="copiar-prompt">copiar prompt com a especificação</button></div>
+      <pre class="spec" id="prompt"></pre>
+    </section>
+  </main>
+</div>
+
+<footer><div class="wrap">Kit do Arquiteto de Agentes · <a href="guia/">guia de uso</a> · <a href="https://inematds.github.io/pffia/" target="_blank" rel="noopener">curso Arquiteto de Trabalho com IA</a> · <a href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a></div></footer>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+const KEY='kit-arquiteto-agentes';
+const ACOES=['ler','escrever','alterar','enviar','comprar','apagar','aprovar'];
+const RESP=['pode','com aprovação','não pode'];
+const FAIXAS=['tolerável','bloqueante','proibido'];
+const ACESS=['sim','não: na cabeça de alguém','não: formato (imagem, papel)','não: sem porta de serviço','?'];
+const PORTA=['sim','não','?'];
+let S=load();
+function blank(){return {f:{},cadeia:[{},{}],inv:[{},{},{}],qual:[{},{},{}],perm:ACOES.map(a=>({acao:a,resp:a==='ler'||a==='escrever'?'pode':(a==='alterar'||a==='enviar')?'com aprovação':'não pode',dono:'',obs:''}))}}
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.f)return s;}catch(e){}return blank();}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}render();}
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+function esc(s){return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function sel(opts,val){return '<select>'+opts.map(o=>`<option${o===val?' selected':''}>${esc(o)}</option>`).join('')+'</select>'}
+function rowsCadeia(){return S.cadeia.map((r,i)=>`<tr data-i="${i}"><td><input type="text" data-c="esp" value="${esc(r.esp)}" placeholder="lê notas e classifica"></td><td><input type="text" data-c="ferr" value="${esc(r.ferr)}" placeholder="ler documento"></td><td><input type="text" data-c="sis" value="${esc(r.sis)}" placeholder="programa de contabilidade"></td><td data-c="porta">${sel(PORTA,r.porta||'?')}</td><td><button class="del" data-del="cadeia" title="remover">×</button></td></tr>`).join('')}
+function rowsInv(){return S.inv.map((r,i)=>`<tr data-i="${i}"><td><input type="text" data-c="oque" value="${esc(r.oque)}" placeholder="tabela de preços vigente"></td><td><input type="text" data-c="onde" value="${esc(r.onde)}" placeholder="planilha na pasta comercial"></td><td><input type="text" data-c="fmt" value="${esc(r.fmt)}" placeholder="planilha"></td><td data-c="acess">${sel(ACESS,r.acess||'?')}</td><td><input type="text" data-c="dono" value="${esc(r.dono)}" placeholder="Cláudia"></td><td><button class="del" data-del="inv" title="remover">×</button></td></tr>`).join('')}
+function rowsQual(){return S.qual.map((r,i)=>`<tr data-i="${i}"><td><input type="text" data-c="cond" value="${esc(r.cond)}" placeholder="cita o último produto comprado"></td><td data-c="faixa">${sel(FAIXAS,r.faixa||'bloqueante')}</td><td><button class="del" data-del="qual" title="remover">×</button></td></tr>`).join('')}
+function rowsPerm(){return S.perm.map((r,i)=>`<tr data-i="${i}"><td><b>${esc(r.acao)}</b></td><td data-c="resp">${sel(RESP,r.resp)}</td><td><input type="text" data-c="dono" value="${esc(r.dono)}" placeholder="nome"></td><td><input type="text" data-c="obs" value="${esc(r.obs)}" placeholder="opcional"></td></tr>`).join('')}
+function renderTables(){$('#t-cadeia tbody').innerHTML=rowsCadeia();$('#t-inv tbody').innerHTML=rowsInv();$('#t-qual tbody').innerHTML=rowsQual();$('#t-perm tbody').innerHTML=rowsPerm();}
+function renderFields(){$$('[data-k]').forEach(el=>{el.value=S.f[el.dataset.k]||''})}
+function line(s){return (s||'').trim()}
+function list(s){return line(s)?line(s).split(/\n+/).map(x=>'  - '+x.trim()).filter(x=>x!=='  - ').join('\n'):'  (a preencher)'}
+function spec(){const f=S.f;const t=v=>line(v)||'(a preencher)';
+const cad=S.cadeia.filter(r=>line(r.esp)).map((r,i)=>`  ${i+1}. ${r.esp}${r.ferr?' · ferramenta: '+r.ferr:''}${r.sis?' · sistema: '+r.sis+' (porta de serviço: '+(r.porta||'?')+')':''}`).join('\n')||'  (a preencher)';
+const inv=S.inv.filter(r=>line(r.oque)).map(r=>`  - ${r.oque} · onde: ${r.onde||'?'} · formato: ${r.fmt||'?'} · acessível: ${r.acess||'?'} · dono: ${r.dono||'?'}${/^não|\?/.test(r.acess||'?')?'   ← TRABALHO ANTES DO AGENTE':''}`).join('\n')||'  (a preencher)';
+const qual=S.qual.filter(r=>line(r.cond)).map(r=>`  - [${r.faixa||'bloqueante'}] ${r.cond}`).join('\n')||'  (a preencher)';
+const perm=S.perm.map(r=>`  - ${r.acao}: ${r.resp}${r.dono?' · dono: '+r.dono:' · dono: (a definir)'}${r.obs?' · '+r.obs:''}`).join('\n');
+return `ESPECIFICAÇÃO DO AGENTE — ${t(f.processo)}
+gerada em ${new Date().toLocaleDateString('pt-BR')} · Kit do Arquiteto de Agentes (INEMA)
+
+1. PROCESSO E RESULTADO
+  Processo: ${t(f.processo)}
+  Resultado: ${t(f.resultado)}
+  Hoje: ${t(f.hoje)}
+
+2. MAPA DE SEIS ELOS
+  Entrada: ${t(f.entrada)}
+  Decisões (R = regra, J = julgamento):
+${list(f.decisoes)}
+  Ações e verificações:
+${list(f.acoes)}
+  Exceções e quem decide:
+${list(f.excecoes)}
+  Resultado: ${t(f.resultado)}
+
+3. PEDIDO DE LONGO HORIZONTE
+  Objetivo: ${t(f.objetivo)}
+  Contexto: ${t(f.contexto)}
+  Restrições: ${t(f.restricoes)}
+  Critério de sucesso: ${t(f.criterio)}
+  Ponto de aprovação: ${t(f.aprovacao)}
+
+4. CADEIA DE ORQUESTRAÇÃO
+  Humano define o objetivo → coordenador divide e junta → especialistas → ferramentas → sistemas → verificação → humano decide exceções.
+  Especialistas:
+${cad}
+  Coordenador, quando parar e chamar: ${t(f.coord)}
+  Verificador confere: ${t(f.verificador)}
+
+5. INVENTÁRIO DE CONTEXTO
+${inv}
+
+6. FICHA DE QUALIDADE
+  Condições de resposta correta:
+${qual}
+  Parar quando: ${t(f.parar)}
+  Chamar humano na hora quando: ${t(f.chamar)}
+  Bateria de casos: ${t(f.bateria)}
+
+7. MATRIZ DE PERMISSÕES
+${perm}
+  Dados fora do alcance: ${t(f.fora)}
+  Registro: toda ação do agente fica anotada (o que fez, quando, com base em quê).`}
+function prompt(){return `Vou colar a especificação de um agente para um processo da minha empresa. Faça o papel do AGENTE COORDENADOR num ensaio simulado. Regras:
+
+1. Siga a cadeia (coordenador, especialistas, verificação) e narre cada passo em uma linha: quem fez, o que fez, com base em qual regra da especificação.
+2. Respeite a matriz de permissões à letra. Ação "com aprovação": pare e me peça aprovação. Ação "não pode": diga que não pode e siga.
+3. Aplique a ficha de qualidade: para cada condição, diga se o caso atendeu e em que faixa caiu qualquer erro.
+4. Se faltar informação, NÃO suponha. Pare e pergunte, dizendo qual bloco da especificação deveria ter a resposta.
+5. Ao final, liste em até 8 itens o que FALTOU na especificação para você decidir sozinho, por ordem de importância.
+
+Os dados do caso são fictícios. Não envie nem registre nada de verdade.
+
+=== ESPECIFICAÇÃO ===
+${spec()}
+
+=== CASO DA BATERIA (fictício) ===
+${line(S.f.caso)||'(descreva um caso com nomes e valores inventados)'}
+
+Comece narrando o passo 1 do coordenador.`}
+function gaps(){const g=[];const f=S.f;
+if(!line(f.resultado))g.push('Bloco 1: o resultado em uma frase está vazio; sem ele nenhuma etapa pode ser julgada.');
+if(/planilha enviada|e-mail enviado|relat[óo]rio enviado/i.test(f.resultado||''))g.push('Bloco 1: o resultado diz o que foi enviado, não o que a pessoa passa a saber ou ter.');
+if(line(f.decisoes)&&!/^\s*[RJ]\b/mi.test(f.decisoes))g.push('Bloco 2: nenhuma decisão marcada com R ou J.');
+if(!line(f.aprovacao))g.push('Bloco 3: sem ponto de aprovação, um erro no passo 2 contamina os passos 3 a 10.');
+if(!line(f.criterio))g.push('Bloco 3: sem critério de sucesso, você não vai saber dizer se ficou bom.');
+const ne=S.cadeia.filter(r=>line(r.esp)).length;if(ne<2)g.push('Bloco 4: menos de dois especialistas; um agente só faz cinco trabalhos medianamente.');if(ne>5)g.push('Bloco 4: mais de cinco especialistas; algum está fazendo dois trabalhos.');
+if(!line(f.coord))g.push('Bloco 4: o coordenador não tem regra de quando parar e chamar.');
+if(!line(f.verificador))g.push('Bloco 4: sem verificador separado, quem executa confere a si mesmo.');
+const amb=S.inv.filter(r=>line(r.oque)&&/^não|\?/.test(r.acess||'?')).length;if(amb)g.push(`Bloco 5: ${amb} linha(s) de contexto não acessível: trabalho a fazer antes do agente.`);
+const nq=S.qual.filter(r=>line(r.cond)).length;if(nq<3)g.push('Bloco 6: menos de três condições de resposta correta.');
+if(nq&&S.qual.filter(r=>line(r.cond)).every(r=>(r.faixa||'bloqueante')==='bloqueante'))g.push('Bloco 6: todas as condições bloqueantes; alguma é cosmética.');
+if(line(f.chamar)&&line(f.chamar).split(/\n|;/).filter(x=>x.trim()).length>3)g.push('Bloco 6: mais de três motivos para chamar você na hora; é o agente que interrompe vinte vezes por dia.');
+if(!line(f.bateria))g.push('Bloco 6: sem bateria de casos, "funcionou?" não tem resposta.');
+const pode=S.perm.filter(r=>r.resp==='pode').length;if(pode>=5)g.push('Bloco 7: matriz mais frouxa do que a de um funcionário no primeiro dia.');
+if(S.perm.some(r=>r.resp!=='não pode'&&!line(r.dono)))g.push('Bloco 7: permissão sem dono ninguém revisa.');
+if(!line(f.fora))g.push('Bloco 7: nenhum dado marcado como fora do alcance; quase sempre existe algum.');
+return g}
+function pct(){const ks=['processo','resultado','entrada','decisoes','acoes','objetivo','contexto','restricoes','criterio','aprovacao','coord','verificador','parar','chamar','bateria','fora'];let n=ks.filter(k=>line(S.f[k])).length;let tot=ks.length+4;if(S.cadeia.some(r=>line(r.esp)))n++;if(S.inv.some(r=>line(r.oque)))n++;if(S.qual.some(r=>line(r.cond)))n++;if(S.perm.some(r=>line(r.dono)))n++;return Math.round(100*n/tot)}
+function render(){$('#spec').textContent=spec();$('#prompt').textContent=prompt();const g=gaps();$('#gaps').innerHTML=g.length?g.map(x=>`<li>${esc(x)}</li>`).join(''):'<li class="ok">Nenhuma lacuna óbvia. Rode o ensaio simulado com três casos: um comum, um difícil e a exceção.</li>';const p=pct();$('#pct').textContent=p+'%';$('#pbar').style.width=p+'%';}
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),1600)}
+function copy(txt,msg){navigator.clipboard.writeText(txt).then(()=>toast(msg)).catch(()=>{const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast(msg)})}
+document.addEventListener('input',e=>{const el=e.target;if(el.dataset.k){S.f[el.dataset.k]=el.value;save();return}
+const tr=el.closest('tr[data-i]');if(!tr)return;const tb=tr.closest('table').id.replace('t-','');const arr={cadeia:S.cadeia,inv:S.inv,qual:S.qual,perm:S.perm}[tb];const i=+tr.dataset.i;const c=el.dataset.c||el.closest('td')?.dataset.c;if(c){arr[i][c]=el.value;localStorage.setItem(KEY,JSON.stringify(S));render();}});
+document.addEventListener('click',e=>{const b=e.target.closest('button,a[data-go]');if(!b)return;
+if(b.dataset.add){({cadeia:S.cadeia,inv:S.inv,qual:S.qual})[b.dataset.add].push({});renderTables();save();}
+if(b.dataset.del){const tr=b.closest('tr');({cadeia:S.cadeia,inv:S.inv,qual:S.qual})[b.dataset.del].splice(+tr.dataset.i,1);renderTables();save();}
+if(b.dataset.go){render();document.querySelector(b.dataset.go).scrollIntoView({behavior:'smooth'})}
+if(b.id==='copiar-spec')copy(spec(),'especificação copiada');
+if(b.id==='copiar-prompt')copy(prompt(),'prompt copiado');
+if(b.id==='imprimir'){render();window.print()}
+if(b.id==='baixar-md'){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([spec()],{type:'text/markdown'}));a.download='especificacao-agente.md';a.click()}
+if(b.id==='exportar'){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S,null,2)],{type:'application/json'}));a.download='kit-arquiteto-agentes.json';a.click()}
+if(b.id==='zerar'){if(confirm('Apagar tudo o que está preenchido neste navegador?')){S=blank();renderFields();renderTables();save();toast('zerado')}}
+if(b.id==='exemplo'){S=exemplo();renderFields();renderTables();save();toast('exemplo carregado');}
+if(b.id==='theme'){const h=document.documentElement;const l=h.getAttribute('data-theme')==='light';h.setAttribute('data-theme',l?'dark':'light');b.textContent=l?'🌙':'☀️';try{localStorage.setItem(KEY+':theme',l?'dark':'light')}catch(e){}}
+});
+$('#importar').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const s=JSON.parse(r.result);if(!s.f)throw 0;S=s;renderFields();renderTables();save();toast('importado')}catch(x){toast('arquivo inválido')}};r.readAsText(f);e.target.value=''});
+function exemplo(){return {f:{processo:'Reativação de clientes sem compra há 90 dias (distribuidora de material de construção)',resultado:'A gerente comercial aprova, toda segunda, uma abordagem pronta e personalizada para cada cliente parado com potencial, e os casos fora do padrão chegam a ela numa lista com motivo',hoje:'2 vendedores + gerente, 11 etapas, uma manhã inteira por semana para 10 clientes',entrada:'Toda segunda às 7h, o cadastro de clientes lista quem não compra há mais de 90 dias',decisoes:'R · cliente tem cobrança em aberto? não abordar, listar com motivo\nR · tem pedido em andamento? não abordar\nR · última compra acima de 3x a média? separar para a gerente\nJ · vale desconto para este cliente? (gerente)',acoes:'Levantar histórico de compras → confere: últimos 12 meses, produto e valor\nPreparar abordagem → confere: cita último produto, até 6 linhas, preço da tabela, prazo ≥ 7 dias\nRegistrar "abordado em" no cadastro → confere: data e vendedor responsável',excecoes:'Cliente com duas fichas no cadastro → gerente decide qual usar\nCliente que brigou com a empresa em 2022 → vendedor da região decide se aborda',objetivo:'Preparar uma abordagem de reativação para cada cliente sem compra há mais de 90 dias, priorizando os de maior potencial',contexto:'Vendemos material de construção a lojistas do interior; tabela de preços vigente e histórico (cópia anonimizada) em anexo; prazo padrão de entrega é 7 dias; vendedor por região na planilha anexa',restricoes:'Não prometa prazo menor que 7 dias; não use preço fora da tabela; não aborde cliente com cobrança em aberto ou pedido em andamento: coloque numa lista separada com o motivo; não aplique desconto',criterio:'Cada abordagem cita o último produto comprado, tem no máximo 6 linhas, usa preço da tabela e termina com uma pergunta',aprovacao:'Não envie nem registre nada. Apresente as abordagens em lista, com o registro do que considerou e descartou, e espere meu ok. Se faltar informação, pergunte antes de supor',coord:'Dúvida sem regra → sobe para a gerente. Mais de 20 clientes na lista separada no mesmo dia → para tudo e chama (indica problema no cadastro, não nos clientes)',verificador:'Preço bate com a tabela vigente; nenhum prazo abaixo de 7 dias; toda abordagem cita produto do catálogo atual; toda linha da lista separada tem motivo',parar:'Cliente sem histórico de compras; duas fichas para o mesmo CNPJ; mais de 50 clientes na rodada; abordagem que não passou no verificador',chamar:'Mais de 20 clientes separados no mesmo dia; cliente com compra acima de 3x a média',bateria:'1-10. dez clientes parados comuns de março · 11. cobrança em aberto · 12. pedido em andamento · 13. duas fichas (difícil) · 14. brigou com a empresa em 2022 (difícil) · 15. produto descontinuado (difícil)',fora:'CNPJ, dados bancários para boleto, celular do dono da loja, limite de crédito em valor (só a marca "no limite: sim/não")',caso:'Cliente Ferragens Sol, sem compra há 120 dias, último produto: 40 sacos de cimento em maio, cobrança em aberto de 1.200 reais, vendedor da região: Paulo'},
+cadeia:[{esp:'Levanta a lista e o histórico',ferr:'buscar no cadastro',sis:'cadastro de clientes (CRM)',porta:'sim'},{esp:'Escreve a abordagem',ferr:'ler tabela e histórico, escrever texto',sis:'pasta de projeto (tabela, catálogo)',porta:'sim'},{esp:'Confere preços e prazos',ferr:'comparar com tabela',sis:'tabela de preços (planilha)',porta:'sim'}],
+inv:[{oque:'Histórico de compras 12 meses',onde:'cadastro de clientes',fmt:'sistema',acess:'sim',dono:'Cláudia'},{oque:'Tabela de preços vigente',onde:'planilha comercial',fmt:'planilha',acess:'sim',dono:'Cláudia'},{oque:'Catálogo atual (produtos descontinuados fora)',onde:'na cabeça do estoque',fmt:'conversa',acess:'não: na cabeça de alguém',dono:'Jorge (estoque)'},{oque:'Clientes que brigaram com a empresa',onde:'na cabeça dos vendedores',fmt:'conversa',acess:'não: na cabeça de alguém',dono:'Paulo'},{oque:'Regras de prazo e desconto',onde:'e-mail de 2024',fmt:'texto',acess:'não: formato (imagem, papel)',dono:'Cláudia'}],
+qual:[{cond:'Cita o último produto comprado pelo cliente',faixa:'bloqueante'},{cond:'Até 6 linhas',faixa:'tolerável'},{cond:'Preço igual ao da tabela vigente',faixa:'bloqueante'},{cond:'Prazo nunca abaixo de 7 dias',faixa:'bloqueante'},{cond:'Termina com uma pergunta',faixa:'tolerável'},{cond:'Aplica desconto',faixa:'proibido'}],
+perm:[{acao:'ler',resp:'pode',dono:'Cláudia',obs:'só campos do inventário'},{acao:'escrever',resp:'pode',dono:'Cláudia',obs:'rascunho de abordagem'},{acao:'alterar',resp:'com aprovação',dono:'Cláudia',obs:'campo "abordado em"'},{acao:'enviar',resp:'com aprovação',dono:'vendedor da região',obs:''},{acao:'comprar',resp:'não pode',dono:'',obs:'desconto = gastar margem'},{acao:'apagar',resp:'não pode',dono:'',obs:''},{acao:'aprovar',resp:'não pode',dono:'',obs:'quem executa não aprova'}]}}
+try{const th=localStorage.getItem(KEY+':theme');if(th==='light'){document.documentElement.setAttribute('data-theme','light');$('#theme').textContent='☀️'}}catch(e){}
+renderFields();renderTables();render();
+})();
+</script>
+</body>
+</html>
