@@ -180,9 +180,9 @@ Cliente Ferragens Sol, sem compra há 120 dias,
   <p class="sub">Uma sessão de 30 a 60 minutos para o primeiro processo. Os seguintes levam metade.</p>
 
   <div class="step"><div class="b">1</div><div>
-    <h3>Abra o kit e carregue o exemplo</h3>
-    <p>O botão "carregar exemplo" preenche os sete blocos com um caso completo de reativação de clientes. Leia a especificação gerada no fim da página para ver o tamanho e o tom esperados. Depois "zerar".</p>
-<pre><span class="k">abrir</span> <span class="s">https://inematds.github.io/kit-arquiteto-agentes/</span>  <span class="c"># → carregar exemplo → ler "Especificação em uma página" → zerar</span></pre>
+    <h3>Abra o kit e carregue o exemplo da sua área</h3>
+    <p>O seletor "carregar exemplo por área" preenche os sete blocos com um caso completo: vendas (reativação de clientes), saúde (confirmação de consultas e glosas de convênio), contábil (cobrança de documentos e obrigações) ou advocacia (controle de prazos). Ao carregar, a "área" fica marcada e o kit passa a apontar lacunas específicas dela, como dado de paciente fora do alcance na saúde ou prazo processual que sempre chama humano na advocacia. Leia a especificação gerada, depois "zerar" e marque a sua área.</p>
+<pre><span class="k">abrir</span> <span class="s">https://inematds.github.io/kit-arquiteto-agentes/</span>  <span class="c"># → carregar exemplo por área → ler a especificação → zerar → área: a sua</span></pre>
   </div></div>
 
   <div class="step"><div class="b">2</div><div>
@@ -243,8 +243,8 @@ enviar · com aprovação · dono: vendedor da região</pre>
 <section id="roadmap"><div class="wrap">
   <span class="chip">Roadmap</span>
   <h2>O que existe e o que vem</h2>
-  <p class="sub">O kit é deliberadamente simples: uma página, sem conta, sem servidor.</p>
-  <div class="phase"><div class="tag">v1 · hoje</div><div class="d"><strong>Sete blocos, especificação, lacunas e ensaio</strong><span>Salvamento local, exportar/importar .json, copiar/imprimir/baixar .md, exemplo completo, tema claro/escuro.</span></div></div>
+  <p class="sub">O kit é deliberadamente simples: uma página, sem conta, sem nada rodando fora do seu navegador. Os cadernos por profissão (saúde, contábil, advocacia) usam os presets do kit como fio condutor.</p>
+  <div class="phase"><div class="tag">v1 · hoje</div><div class="d"><strong>Sete blocos, especificação, lacunas e ensaio</strong><span>Salvamento local, exportar/importar .json, copiar/imprimir/baixar .md, quatro exemplos por área (vendas, saúde, contábil, advocacia) com regras de lacuna específicas, tema claro/escuro.</span></div></div>
   <div class="phase"><div class="tag">v1.1</div><div class="d"><strong>Vários processos no mesmo navegador</strong><span>Trocar entre especificações salvas (os dez processos críticos da aula 8) sem exportar e importar.</span></div></div>
   <div class="phase"><div class="tag">v1.2</div><div class="d"><strong>Bateria de casos estruturada</strong><span>Tabela de casos com resultado esperado e coluna de "passou/parou/errou" por rodada de ensaio.</span></div></div>
 </div></section>
